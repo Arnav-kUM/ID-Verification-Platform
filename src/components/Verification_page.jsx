@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 
 function Verification_page() {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [isUploading, setIsUploading] = useState(false);
+    const { verificationId } = useParams();
+    const Host = 'http://127.0.0.1:8080/';
   
     const handleFileChange = (event) => {
       const files = Array.from(event.target.files);
@@ -15,11 +18,17 @@ function Verification_page() {
   
       setIsUploading(true);
   
-      // Simulate an upload process
-      setTimeout(() => {
-        setIsUploading(false);
+      const response = await fetch(`${Host}verify/${verificationId}`);
+
+      const data = await response.json();
+
+      if (data.success){
         alert("Files uploaded successfully!");
-      }, 2000);
+      }
+      else{
+        alert(`Sorry, no user with ${verificationId} exist`)
+      }
+      setIsUploading(false);
     };
   
     const handleDeleteFile = (index) => {

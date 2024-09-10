@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Verification_page/>} />
+        <Route path="/:verificationId" element={<Verification_page/>} />
       </Routes>
     </BrowserRouter>
   );
